@@ -734,13 +734,14 @@ func CheckPluginAuth(username, password string) bool {
 
 //CheckPluginAcl checks that the plugin is not nil and returns the superuser/acl response.
 func CheckPluginAcl(username, topic, clientid string, acc int) bool {
+	aclCheck := false
 	if commonData.Plugin != nil {
-		aclCheck := commonData.PGetSuperuser(username)
+		aclCheck = commonData.PGetSuperuser(username)
 		if !aclCheck {
 			aclCheck = commonData.PCheckAcl(username, topic, clientid, acc)
 		}
 	}
-	return false
+	return aclCheck
 }
 
 //export AuthPluginCleanup
